@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Students</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Students')
+
+@section('content')
     <h1>Students</h1>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
-
-    <a href="/students/create">Create Student</a>
+    <a href="{{ route('students.create') }}">Create Student</a>
 
     <table border="1" cellpadding="10">
         <thead>
@@ -30,9 +25,14 @@
                     <td>{{ $student->email }}</td>
                     <td>{{ $student->phone }}</td>
                     <td>
-                        <a href="/students/{{ $student->id }}">View</a>
-                        <a href="/students/{{ $student->id }}/edit">Edit</a>
-                        <form action="/students/{{ $student->id }}" method="POST" style="display:inline">
+                        <a href="{{ route('students.show', $student) }}">View</a>
+                        <a href="{{ route('students.edit', $student) }}">Edit</a>
+
+                        <form
+                            action="{{ route('students.destroy', $student) }}"
+                            method="POST"
+                            style="display:inline"
+                        >
                             @csrf
                             @method('DELETE')
                             <button type="submit">Delete</button>
@@ -46,5 +46,4 @@
             @endforelse
         </tbody>
     </table>
-</body>
-</html>
+@endsection

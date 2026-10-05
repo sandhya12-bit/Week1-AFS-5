@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Student</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Create Student')
+
+@section('content')
     <h1>Create Student</h1>
 
-    @if($errors->any())
-        <div>
-            <h3>Please fix the following errors:</h3>
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('partials.errors')
 
-    <form action="/students" method="POST">
+    <form action="{{ route('students.store') }}" method="POST">
         @csrf
 
         <div>
@@ -46,7 +36,12 @@
 
         <div>
             <label for="date_of_birth">Date of Birth</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
+            <input
+                type="date"
+                id="date_of_birth"
+                name="date_of_birth"
+                value="{{ old('date_of_birth') }}"
+            >
         </div>
         <br>
 
@@ -54,6 +49,5 @@
     </form>
 
     <br>
-    <a href="/students">Back to Students</a>
-</body>
-</html>
+    <a href="{{ route('students.index') }}">Back to Students</a>
+@endsection
